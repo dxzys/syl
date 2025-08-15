@@ -48,7 +48,7 @@ app.post('/parse', upload.single('syllabusFile'), async (req, res) => {
         console.log('Extracted text:', extractedText.slice(0, 200) + '...')
 
         // Send text back to the frontend
-        res.render('index', { extractedText });
+        res.render('index', { extractedText })
     } catch (error) {
         console.error('Error parsing file:', error)
         res.status(500).send('Error processing syllabus.')
