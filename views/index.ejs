@@ -29,5 +29,15 @@
         </div>
         <button type="submit" class="btn btn-primary">Parse Syllabus</button>
     </form>
+
+    <% if (typeof extractedText !== 'undefined') { %>
+        <hr>
+        <h3>Extracted Text:</h3>
+        <% if (extractedText.trim()) { %>
+            <pre style="white-space: pre-wrap;"><%= extractedText %></pre>
+        <% } else { %>
+            <p class="text-danger">No text found in uploaded file or pasted input.</p>
+        <% } %>
+    <% } %>
 </body>
 </html>
