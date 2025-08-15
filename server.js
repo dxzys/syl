@@ -41,5 +41,5 @@ app.post('/generate', (req, res) => {
 
 // > Start server
 app.listen(port, () => {
-  console.log('Server running at http://localhost:${port}')
+  console.log(`Server running at http://localhost:${port}`)
 })
