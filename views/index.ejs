@@ -1,8 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+    <title>Syllabus</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
 </head>
-<body>
+<body class="container py-5">
+    <h1 class="mb-4">Syllabus</h1>
+    <form action="/parse" method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="syllabusFile" class="form-label">Upload PDF</label>
+            <input type="file" class="form-control" name="syllabusFile" accept="application/pdf">
+        </div>
+
+        <div class="mb-3">
+            <label for="syllabusText" class="form-label">Or paste syllabus text</label>
+            <textarea class="form-control" name="syllabusText" rows="5"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="startDate" class="form-label">Start Date</label>
+            <input type="date" class="form-control" name="startDate">
+        </div>
+
+        <div class="mb-3">
+            <label for="endDate" class="form-label">End Date</label>
+            <input type="date" class="form-control" name="endDate">
+        </div>
+        <button type="submit" class="btn btn-primary">Parse Syllabus</button>
+    </form>
 </body>
 </html>
