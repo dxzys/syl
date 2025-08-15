@@ -3,7 +3,7 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-app.get('/', (reeq, res) => {
+app.get('/', (req, res) => {
   res.render('index')
 })
 
