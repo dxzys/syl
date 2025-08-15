@@ -24,16 +24,37 @@ const upload = multer({ dest: 'uploads/' })
 // > Routes
 // GET / -> Upload form
 app.get('/', (req, res) => {
-    res.render('index')
+    res.render('index', { extractedText: undefined })
 })
-// POST /parse
-app.post('/parse', upload.single('syllabusFile'), (req, res) => {
-    console.log('Uploaded file:', req.file)
-    console.log('Pasted text:', req.body.syllabusText)
-    console.log('Start date:', req.body.startDate)
-    console.log('End date:', req.body.endDate)
-    res.send('Parsing not implemented yet.')
+// POST /parse -> handle PDF/pasted text
+app.post('/parse', upload.single('syllabusFile'), async (req, res) => {
+    try {
+        let extractedText = ''
+
+        if (req.file) {
+            // File uploaded
+            if (req.file.mimetype === 'application/pdf') {
+                const dataBuffer = fs.readFileSync(req.file.path)
+                const pdfData = await pdfParse(dataBuffer)
+                extractedText = pdfData.text
+            } else {
+                return res.send('Only PDF files are supported right now.')
+            }
+        } else if (req.body.syllabusText && req.body.syllabusText.trim()) {
+            // Text pasted in textarea
+            extractedText = req.body.syllabusText.trim()
+        }
+        // Debug log
+        console.log('Extracted text:', extractedText.slice(0, 200) + '...');
+
+        // Send text back to the frontend
+        res.render('index', { extractedText });
+    } catch (error) {
+        console.error('Error parsing file:', error);
+        res.status(500).send('Error processing syllabus.');
+    }
 })
+
 // POST /generate
 app.post('/generate', (req, res) => {
     res.send('ICS generation not implemented yet.')
